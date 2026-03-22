@@ -123,6 +123,6 @@ Todos los casos fueron extraídos directamente de los ejemplos dados por el expe
 
 ## Autores
 
-Edward Cerdas Rodríguez
-Angelica Saenz Lacayo
-Isabel Galeano Hernandez
+- Edward Cerdas Rodríguez
+- Angelica Saenz Lacayo
+- Isabel Galeano Hernandez
