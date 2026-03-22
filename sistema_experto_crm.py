@@ -26,6 +26,7 @@ Descripción:
 =============================================================================
 """
 
+import argparse
 
 ############# FRAMES #############
 
@@ -669,7 +670,7 @@ def separador(titulo: str = "", ancho: int = 65):
 
 # -- Función principal: ejecutar el sistema ------------------------------------
 
-def ejecutar_sistema():
+def ejecutar_sistema(mostrar_traza: bool):
     motor = MotorInferencia(REGLAS)
 
     print("\n" + "═" * 65)
@@ -683,7 +684,6 @@ def ejecutar_sistema():
 
         separador(f"Cliente: {base.obtener('cliente_id')}")
 
-        # Entrada
         print(f"\n  PERFIL DE ENTRADA")
         print(f"  {'Valor RFM':<30}: {base.obtener('valor_rfm')}")
         print(f"  {'Recency':<30}: {base.obtener('recency')}")
@@ -692,22 +692,14 @@ def ejecutar_sistema():
         print(f"  {'Arquetipo':<30}: {base.obtener('arquetipo')}")
         print(f"  {'Etapa Journey (entrada)':<30}: {datos.get('etapa_journey')}")
 
-        # Salida
         print(f"\n  RESULTADO DE INFERENCIA")
         etapa_final = base.obtener("etapa_journey")
         if etapa_final != datos.get("etapa_journey"):
-            print(f"  {'Etapa Journey (ajustada)':<30}: {etapa_final}  ← modificada por motor")
+            print(f"  {'Etapa Journey (ajustada)':<30}: {etapa_final}  <- modificada por motor")
         print(f"  {'Canal preferido':<30}: {base.obtener('canal_preferido', '(no asignado)')}")
         print(f"  {'Acción CRM recomendada':<30}: {base.obtener('accion_crm')}")
 
-        # Traza
-        flag_traza_activada = 1 
-        # Si el flag tiene el valor de:
-        # 1 --> se imprime la traza completa
-        # 0 --> Solo se imprime el resultado sin la traza
-        
-
-        if flag_traza_activada == 1:
+        if mostrar_traza:
             print(f"\n  TRAZA DE RAZONAMIENTO")
             for paso in base.traza():
                 print(f"  * {paso}")
@@ -721,4 +713,14 @@ def ejecutar_sistema():
 # ------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    ejecutar_sistema()
+    parser = argparse.ArgumentParser(
+        description="Sistema Basado en Conocimiento -- CRM Bancario"
+    )
+    parser.add_argument(
+        "-t", "--traza",
+        action="store_true",
+        help="Muestra la traza completa de razonamiento para cada cliente"
+    )
+    args = parser.parse_args()
+
+    ejecutar_sistema(mostrar_traza=args.traza)
