@@ -123,4 +123,6 @@ Todos los casos fueron extraídos directamente de los ejemplos dados por el expe
 
 ## Autores
 
-Universidad CENFOTEC — Mini Proyecto 1
+Edward Cerdas Rodríguez
+Angelica Saenz Lacayo
+Isabel Galeano Hernandez
